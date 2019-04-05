@@ -6,7 +6,8 @@
 #### 4.dns的原理
 #### 5.闭包原理，有什么应用：
 #### 6.有哪些基本类型：
-Undefined、Null、Boolean、Number、String、Symbol (new in ES 6);Object
+Undefined、Null、Boolean、Number、String、Symbol (new in ES 6);基本类型的变量是存放在栈内存（Stack）里的,栈内存中包括了变量的标识符和变量的值
+其余为引用类型：Object；Object,Array,Date,RegExp,Function;引用类型的值是保存在堆内存（Heap）中的对象（Object）,与其他编程语言不同，JavaScript 不能直接操作对象的内存空间（堆内存）。
 #### 7.输入url之后的过程;
 #### 8.css：两个div，左边100px，右边100%（铺满）；
 #### 9.tcp/ip，握手挥手；四次挥手为什么要有2MSL
