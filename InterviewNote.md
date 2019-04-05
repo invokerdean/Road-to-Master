@@ -11,7 +11,7 @@ dns的原理
 5.
 闭包原理，有什么应用：
 6.
-有哪些基本类型：number，boolean，string，null，undefined（symbol?）
+有哪些基本类型：Undefined、Null、Boolean、Number、String、Symbol (new in ES 6);Object
 7.
 输入url之后的过程;
 8.
