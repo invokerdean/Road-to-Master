@@ -13,3 +13,6 @@ POST
 PUT DELETE
 ## HTTP CODE
 定义服务器对请求的处理结果，好的HTTP服务可以通过code判断结果
+## cmd
+curl -v 【url】
+访问url并显示详情
