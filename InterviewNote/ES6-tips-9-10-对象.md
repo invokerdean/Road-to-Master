@@ -191,7 +191,87 @@ Object(true) // {[[PrimitiveValue]]: true}
 Object(10)  //  {[[PrimitiveValue]]: 10}
 Object('abc') // {0: "a", 1: "b", 2: "c", length: 3, [[PrimitiveValue]]: "abc"}
 ```
+> Object.assign可以用来处理数组，但是会把数组视为对象;Object.assign只能进行值的复制，如果要复制的值是一个取值函数，那么将求值后再复制。普通方法可以正常复制
+
+用途：为对象添加属性；为对象添加方法；合并多个对象；克隆对象；为属性指定默认值
 #### Object.getOwnPropertyDescriptors()
-#### __proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf()
+ES2017 引入了Object.getOwnPropertyDescriptors()方法，返回指定对象所有自身属性（非继承属性）的描述对象。
+```
+const obj = {
+  foo: 123,
+  get bar() { return 'abc' }
+};
+
+Object.getOwnPropertyDescriptors(obj)
+// { foo:
+//    { value: 123,
+//      writable: true,
+//      enumerable: true,
+//      configurable: true },
+//   bar:
+//    { get: [Function: get bar],
+//      set: undefined,
+//      enumerable: true,
+//      configurable: true } }
+```
+该方法的引入目的，主要是为了解决Object.assign()无法正确拷贝get属性和set属性的问题。Object.getOwnPropertyDescriptors()方法配合Object.defineProperties()方法，就可以实现正确拷贝。
+```
+const source = {
+  set foo(value) {
+    console.log(value);
+  }
+};
+
+const target2 = {};
+Object.defineProperties(target2, Object.getOwnPropertyDescriptors(source));
+```
+Object.getOwnPropertyDescriptors()方法的另一个用处，是配合Object.create()方法，将对象属性克隆到一个新对象。这属于浅拷贝。
+```
+const clone = Object.create(Object.getPrototypeOf(obj),
+  Object.getOwnPropertyDescriptors(obj));
+```
+Object.getOwnPropertyDescriptors()也可以用来实现 Mixin（混入）模式。(??)
+#### __proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf(). 
+
+前后的双下划线，说明它本质上是一个内部属性，而不是一个正式的对外的 API，只是由于浏览器广泛支持，才被加入了 ES6
+1. Object.setPrototypeOf():Object.setPrototypeOf方法的作用与__proto__相同，用来设置一个对象的prototype对象，返回参数对象本身
+```
+// 格式
+Object.setPrototypeOf(object, prototype)
+```
+> 如果第一个参数不是对象，会自动转为对象。但是由于返回的还是第一个参数，所以这个操作不会产生任何效果。如果第一个参数是undefined或null，就会报错。
+```
+Object.setPrototypeOf(1, {}) === 1 // true
+Object.setPrototypeOf('foo', {}) === 'foo' // true
+```
+2. Object.getPrototypeOf()用于读取一个对象的原型对象。如果参数不是对象，会被自动转为对象.undefined或null会报错。
 #### Object.keys()，Object.values()，Object.entries()
+* Object.keys方法，返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键名。
+* Object.values方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值。Object.values会过滤属性名为 Symbol 值的属性。如果Object.values方法的参数是一个字符串，会返回各个字符组成的一个数组。
+* Object.entries()方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对数组。如果原对象的属性名是一个 Symbol 值，该属性会被忽略。
+> Object.entries方法的另一个用处是，将对象转为真正的Map结构。
+```
+const obj = { foo: 'bar', baz: 42 };
+const map = new Map(Object.entries(obj));
+map // Map { foo: "bar", baz: 42 }
+```
 #### Object.fromEntries()
+Object.fromEntries()方法是Object.entries()的逆操作，用于将一个键值对数组转为对象。
+```
+// 例一
+const entries = new Map([
+  ['foo', 'bar'],
+  ['baz', 42]
+]);
+
+Object.fromEntries(entries)
+// { foo: "bar", baz: 42 }
+
+// 例二
+const map = new Map().set('foo', true).set('bar', false);
+Object.fromEntries(map)
+// { foo: true, bar: false }
+
+Object.fromEntries(new URLSearchParams('foo=bar&baz=qux'))
+// { foo: "bar", baz: "qux" }
+```
