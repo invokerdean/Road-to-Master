@@ -178,3 +178,20 @@ const clone3 = Object.create(
 )
 ```
 如果用户自定义的属性，放在扩展运算符后面，则扩展运算符内部的同名属性会被覆盖掉。可以用于修改对象属性。扩展运算符的参数对象之中，如果有取值函数get，这个函数是会执行的。
+## 10.对象新增方法
+#### Object.is()
+* ES5:相等运算符（==）和严格相等运算符（===）。它们都有缺点，前者会自动转换数据类型，后者的NaN不等于自身，以及+0等于-0
+* ES6:在所有环境中，只要两个值是一样的，它们就应该相等。（“Same-value equality”（同值相等）算法）
+#### Object.assign()
+Object.assign方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。第一个参数是目标对象，后面的参数都是源对象。参数不是对象，则会先转成对象，非首参数无法转换会跳过，首参数会报错。undefined和null无法转成对象，所以如果它们作为首个参数，就会报错。
+
+其他类型的值（即数值、字符串和布尔值）不在首参数（在首参数也不会，亲测），也不会报错。但是，除了字符串会以数组形式，拷贝入目标对象，其他值都不会产生效果。因为只有字符串的包装对象，会产生可枚举属性。它们的原始值都在包装对象的内部属性[[PrimitiveValue]]上面，这个属性是不会被Object.assign拷贝的。
+```
+Object(true) // {[[PrimitiveValue]]: true}
+Object(10)  //  {[[PrimitiveValue]]: 10}
+Object('abc') // {0: "a", 1: "b", 2: "c", length: 3, [[PrimitiveValue]]: "abc"}
+```
+#### Object.getOwnPropertyDescriptors()
+#### __proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf()
+#### Object.keys()，Object.values()，Object.entries()
+#### Object.fromEntries()
