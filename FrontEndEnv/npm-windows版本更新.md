@@ -9,6 +9,8 @@ npm-windows-upgrade
 ```
 > Note: Do not run npm i -g npm. Instead use npm-windows-upgrade to update npm going forward. Also if you run the NodeJS installer, it will replace the node version.(fromStackOverFlow)
 
+> https://stackoverflow.com/questions/18412129/how-can-i-update-npm-on-windows
+
 * Upgrades npm in-place, where node installed it.
 * Easy updating, update to the latest by running npm-windows-upgrade -p -v latest.
 * Does not modify the default path.
