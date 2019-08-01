@@ -1,5 +1,5 @@
 ## css
-```
+```html
 <text class="vPriceNow">
       <text>{{item.priceNow}}</text>
       <text>/斤</text>
@@ -17,7 +17,7 @@ vPriceNow处于绝对定位的模式
 此时，3.46位于上部，/斤位于下部
 
 ## js
-```
+```JavaScript
 data: {
         motto: 'Hello World',
         userInfo: {},
