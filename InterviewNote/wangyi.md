@@ -22,3 +22,4 @@ function delay(time){
 ```
 p1.then(()=>delay(2)).then(fn)
 ```
+6.瀑布流，懒加载实现
