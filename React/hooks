@@ -1,0 +1,22 @@
+
+在 React 中，备忘录（memo）函数有助于优化组件性能。以下是一个面试高分回答：
+
+在 React 中，memo 是一个高阶组件（Higher-Order Component），用于优化函数组件的性能。其主要用途包括：
+
+性能优化：React.memo 通过记忆组件的输出，避免在不必要的情况下重新渲染组件。当一个组件的 props 没有变化时，memo 可以阻止组件重新渲染，从而提高应用的性能。
+
+减少不必要的渲染：在父组件重新渲染时，memo 可以防止子组件在 props 未改变的情况下重新渲染。这对于那些性能敏感的组件特别有用，如大型列表或频繁更新的 UI 部分。
+
+简单易用：使用 memo 非常简单，只需将组件包裹在 React.memo() 中即可实现。它提供了一种声明式的方式来优化性能，而无需手动管理 shouldComponentUpdate 生命周期方法。
+
+与 useMemo 和 useCallback 的结合：memo 通常与 useMemo 和 useCallback 钩子结合使用，以进一步控制组件的渲染行为和优化性能。useMemo 用于记忆计算结果，useCallback 用于记忆函数引用。
+
+示例代码：
+
+const MyComponent = React.memo(function MyComponent(props) {
+  // 组件逻辑
+  return <div>{props.value}</div>;
+});
+通过这种方式，React.memo 可以在保持代码简洁的同时显著提升应用的性能，特别是在大型应用或复杂界面中。
+
+这样的回答展示了你对 React 性能优化技术的理解，特别是在使用 React.memo 方面的熟练程度。这可以帮助面试官看到你在构建高效 React 应用方面的能力。
